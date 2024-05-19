@@ -17,7 +17,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
   const [sidebarExpanded, setSidebarExpanded] = useState(
-    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true'
+    storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
   );
 
   // close on click outside
@@ -63,10 +63,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
-      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-        <NavLink to="/">
-          <img src={Logo} alt="Logo" />
-        </NavLink>
+      <div className="flex bg-blue-950 items-center justify-between gap-2 px-6 py-5.5 lg:py-2.5">
+      <NavLink to="/" className="flex items-center gap-2 p-2">
+        <img className="h-12 w-12 object-contain bg-white rounded-lg" src={Logo} alt="Logo" />
+        <p className="text-xl font-semibold text-white">Study Blitz</p>
+      </NavLink>
 
         <button
           ref={trigger}
