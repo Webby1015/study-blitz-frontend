@@ -15,6 +15,8 @@ import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
+import Notes from './pages/Notes';
+import Discussions from './pages/Discussions';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -48,6 +50,24 @@ function App() {
             <>
               <PageTitle title="Calendar | Study Blitz " />
               <Calendar />
+            </>
+          }
+        />
+        <Route
+          path="/notes"
+          element={
+            <>
+              <PageTitle title="Notes | Study Blitz " />
+              <Notes />
+            </>
+          }
+        />
+        <Route
+          path="/discussions"
+          element={
+            <>
+              <PageTitle title="Discussions | Study Blitz " />
+              <Discussions />
             </>
           }
         />
