@@ -1,50 +1,35 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import { useEffect, useState } from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
+import api from '../services/api';
+import { Document, Page } from '@react-pdf/renderer';
 
 const Note = ({
-  user,
-  content,
-  timestamp,
-  comments,
-  showComments,
-  toggleComments,
+  title,
+  URL,
 }: {
-  user: string;
-  content: string;
-  timestamp: string;
-  comments: { content: string; owner: string }[];
-  showComments: boolean;
-  toggleComments: () => void;
+  title: string;
+  URL: string;
+//   toggleComments: () => void;
 }) => (
   <div className="p-4 bg-white dark:bg-slate-800 rounded-lg shadow-md mb-4">
     <div className="flex items-center mb-2">
-      <div className="w-10 h-10 rounded-full bg-slate-400 dark:bg-gray-700 mr-3"></div>
       <div>
-        <div className="font-bold text-lg text-gray-900 dark:text-white">
-          {user}
+        <div className="font-bold text-lg m-1 text-gray-900 dark:text-white">
+          {title}
         </div>
-        <div className="text-sm text-gray-500">{timestamp}</div>
       </div>
     </div>
-    <div className="text-gray-800 dark:text-gray-300 px-1">{content}</div>
+
     <div className="mt-2">
-      <iframe
-        src="https://www.clickdimensions.com/links/TestPDFfile.pdf"
-        title="PDF Viewer"
-        className="w-full h-100"
-      ></iframe>
+      <iframe src={URL} title="PDF Viewer" className="w-full h-100"></iframe>
+      {/* <iframe src="https://drive.google.com/file/d/1ftt9UVsALRYKOyhvNZ8WgvKUDKS-0XU5/preview" width="640" height="480" allow="autoplay"></iframe> */}
+      
     </div>
-    <div className="mt-2">
-      <a href="https://www.clickdimensions.com/links/TestPDFfile.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-500">
-        View PDF in New Tab
-      </a>
-    </div>
-    <button onClick={toggleComments} className="text-blue-500 mt-2">
+    
+    {/* <button onClick={toggleComments} className="text-blue-500 mt-2">
       {showComments ? 'Hide Comments' : 'Show Comments'}
     </button>
-    {showComments && (
+    {showComments && (<></>
       <div className="mt-2">
         {comments.map((comment, index) => (
           <div key={index} className="text-gray-800 dark:text-gray-300 px-1">
@@ -53,42 +38,49 @@ const Note = ({
           </div>
         ))}
       </div>
-    )}
+    )} */}
   </div>
 );
 
 const Notes = () => {
+  const [loading, setLoading] = useState(false);
   const [notes, setNotes] = useState([
-    {
-      user: 'User One',
-      content: 'This is the first tweet content!',
-      timestamp: '2h ago',
-      comments: [{ content: 'Comment 1', owner: 'Commenter A' }, { content: 'Comment 2', owner: 'Commenter B' }],
-      showComments: false,
-    },
-    {
-      user: 'User Two',
-      content: 'Another tweet with more content here.',
-      timestamp: '4h ago',
-      comments: [{ content: 'Comment 3', owner: 'Commenter C' }, { content: 'Comment 4', owner: 'Commenter D' }],
-      showComments: false,
-    },
-    {
-      user: 'User Three',
-      content: 'Tweet tweet tweet!',
-      timestamp: '1d ago',
-      comments: [{ content: 'Comment 5', owner: 'Commenter E' }, { content: 'Comment 6', owner: 'Commenter F' }],
-      showComments: false,
-    },
+    { title: 'dummy', URL: '' },
+  ]);
+  const [notesCopy, setNotesCopy] = useState([
+    { title: 'dummy', URL: '' },
   ]);
 
-  const toggleComments = (index: number) => {
-    setNotes((prevNotes) =>
-      prevNotes.map((note, i) =>
-        i === index ? { ...note, showComments: !note.showComments } : note
-      )
-    );
-  };
+//   const toggleComments = (index: number) => {
+//     setNotes((prevNotes) =>
+//       prevNotes.map((note, i) =>
+//         i === index ? { ...note, showComments: !note.showComments } : note,
+//       ),
+//     );
+//   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/api/notes');
+        // console.log(response.data.data);
+        setNotes(response.data.data);
+        setNotesCopy(response.data.data)
+        // toast(response.data.message)
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  //   return loading ? (
+  //     <Loader />
+  //   ) : (
+  //     <>
+  //       <Routes></Routes>
 
   return (
     <DefaultLayout>
@@ -96,9 +88,15 @@ const Notes = () => {
       <div className="col-span-1 md:col-span-2">
         <div className="mb-4 bg-white dark:bg-slate-800 p-4 rounded-lg shadow-md">
           <div className="flex flex-row items-center">
-            <input
+            <input 
               className="flex-grow p-2 border-none rounded-lg focus:outline-none dark:bg-slate-800 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
               placeholder="Search..."
+              onChange={(event)=>{if(event.target.value.length===0){
+                setNotes(notesCopy)
+              }else{
+                setNotes([...notes.filter(item => item.title.includes(event.target.value))])}}
+              }
+                
             ></input>
             <button className="px-2">
               <svg
@@ -129,12 +127,9 @@ const Notes = () => {
         {notes.map((note, index) => (
           <Note
             key={index}
-            user={note.user}
-            content={note.content}
-            timestamp={note.timestamp}
-            comments={note.comments}
-            showComments={note.showComments}
-            toggleComments={() => toggleComments(index)}
+            title={note.title}
+            URL={note.URL}
+            // toggleComments={() => toggleComments(index)}
           />
         ))}
       </div>

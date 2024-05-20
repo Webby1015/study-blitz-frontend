@@ -1,9 +1,36 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import UserOne from '../../images/user/user-01.png';
+import api from '../../services/api';
+import { toast } from 'react-toastify';
 
 const DropdownUser = () => {
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('/api/notes');
+        // console.log(response.data.data);
+        setNotes(response.data.data);
+        setNotesCopy(response.data.data)
+        // toast(response.data.message)
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handdleLogout = () => {
+    const accessToken = null;
+    localStorage.clear();
+    api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    // toast.success("Logged Out");
+    window.location.reload();
+  };
+
+  const isSignedIn = localStorage.getItem('accessToken') !== null;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -35,7 +62,7 @@ const DropdownUser = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  return (
+  return isSignedIn ? (
     <div className="relative">
       <Link
         ref={trigger}
@@ -51,7 +78,11 @@ const DropdownUser = () => {
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <img src='https://randomuser.me/api/portraits/lego/1.jpg' className=' rounded-full' alt="User" />
+          <img
+            src="https://randomuser.me/api/portraits/lego/1.jpg"
+            className=" rounded-full"
+            alt="User"
+          />
         </span>
 
         <svg
@@ -153,7 +184,10 @@ const DropdownUser = () => {
             </Link>
           </li> */}
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button
+          onClick={handdleLogout}
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+        >
           <svg
             className="fill-current"
             width="22"
@@ -176,6 +210,8 @@ const DropdownUser = () => {
       </div>
       {/* <!-- Dropdown End --> */}
     </div>
+  ) : (
+    <div className="relative py-6"></div>
   );
 };
 
