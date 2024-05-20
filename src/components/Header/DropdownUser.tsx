@@ -10,13 +10,13 @@ const DropdownUser = () => {
       try {
         const response = await api.get('/api/notes');
         // console.log(response.data.data);
-        setNotes(response.data.data);
-        setNotesCopy(response.data.data)
+        // setNotes(response.data.data);
+        // setNotesCopy(response.data.data)
         // toast(response.data.message)
       } catch (err) {
         console.error('Error fetching data:', err);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
     fetchData();
