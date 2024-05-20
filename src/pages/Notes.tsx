@@ -21,9 +21,9 @@ const Note = ({
     </div>
 
     <div className="mt-2">
-      <iframe src={URL} title="PDF Viewer" className="w-full h-100"></iframe>
+      {/* <iframe src={URL} title="PDF Viewer" className="w-full h-100"></iframe> */}
       {/* <iframe src="https://drive.google.com/file/d/1ftt9UVsALRYKOyhvNZ8WgvKUDKS-0XU5/preview" width="640" height="480" allow="autoplay"></iframe> */}
-      
+      <button onClick={()=> window.open("https://drive.google.com/file/d/1ftt9UVsALRYKOyhvNZ8WgvKUDKS-0XU5/preview", "_blank")} >View PDF</button>
     </div>
     
     {/* <button onClick={toggleComments} className="text-blue-500 mt-2">
