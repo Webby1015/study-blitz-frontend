@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { logout } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const DropdownUser = () => {
   // useEffect(() => {
@@ -20,7 +21,7 @@ const DropdownUser = () => {
   //   };
   //   fetchData();
   // }, []);
-
+  const navigate = useNavigate();
   const handdleLogout = () => {
     const fetchData = async () => {
       try {
@@ -30,6 +31,7 @@ const DropdownUser = () => {
         localStorage.setItem('myKey', 'false');
         const storedValue = localStorage.getItem('myKey');
         setCurrentUser(storedValue ? storedValue : '');
+        navigate('/')
       } catch (error: any) {
         localStorage.setItem('myKey', 'true');
         console.error('Error during logout:', error.response.data.message);

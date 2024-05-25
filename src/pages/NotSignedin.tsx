@@ -119,7 +119,7 @@ const StyledLink = styled(Link)`
 export const NotSignedin = () => {
   return (
     <DefaultLayout>
-      <Container>
+      <Container className=' rounded-md'>
         <Noise />
         <Overlay />
         <Terminal>

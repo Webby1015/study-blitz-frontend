@@ -40,6 +40,21 @@ export const logout =  async ()=>{
   }
 }
 
+export const signup =  async (email:string,password:string)=>{
+  try {
+    const response = await api.post('api/firebase/auth/register',
+      {
+        "email": email,
+        "password": password
+      }
+    ); 
+    return response.data;
+  } catch (error) {
+    // console.error('Error making API call:', error);
+    throw error;
+  }
+}
+
 
 
 

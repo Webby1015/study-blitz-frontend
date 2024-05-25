@@ -2,31 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../images/logo/logo.svg';
 import DefaultLayout from '../../layout/DefaultLayout';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import { AlreadySignedin } from '../AlreadySignedin';
 import { signin } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
+
 
 const SignIn: React.FC = (props:any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const singin = true;
+  const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
       const fetchData = async () => {
         try {
           const res = await signin(email,password);
-          console.log(res);
-          console.log(res.data.message)
+          // console.log(res.message);
           localStorage.setItem('myKey', 'true');
           const storedValue = localStorage.getItem('myKey');
           setCurrentUser(storedValue ? storedValue : "");
+          navigate('/notes')
         } catch (error: any) {
           console.error('Error during signin:', error.response.data.message);
         }
       };
-  
       fetchData();
   };
   const [currentUser,setCurrentUser] = useState("")
