@@ -3,9 +3,11 @@ import DefaultLayout from '../layout/DefaultLayout';
 import CoverOne from '../images/cover/cover-01.png';
 import userSix from '../images/user/user-06.png';
 import { Link } from 'react-router-dom';
+import { NotSignedin } from './NotSignedin';
 
 const Profile = () => {
-  return (
+  const storedValue = localStorage.getItem('myKey');
+  return storedValue==='true'?(
     <DefaultLayout>
       {/* <Breadcrumb pageName="Profile" /> */}
 
@@ -282,7 +284,9 @@ const Profile = () => {
         </div>
       </div>
     </DefaultLayout>
-  );
+  ):(
+    <NotSignedin/>
+  )
 };
 
 export default Profile;

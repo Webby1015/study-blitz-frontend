@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../layout/DefaultLayout';
+import { NotSignedin } from './NotSignedin';
 
 const Tweet = ({
   user,
@@ -70,7 +71,7 @@ const Tweet = ({
   </div>
 );
 
-const Discussions = () => {
+const Discussions = (props: any) => {
   const [notes, setNotes] = useState([
     {
       user: 'User One',
@@ -110,9 +111,11 @@ const Discussions = () => {
         i === index ? { ...note, showComments: !note.showComments } : note,
       ),
     );
+    // console.log(props.userState)
   };
 
-  return (
+  const storedValue = localStorage.getItem('myKey');
+  return storedValue==='true'? (
     <DefaultLayout>
       {/* Main Feed */}
       <div className="col-span-1 md:col-span-2">
@@ -154,23 +157,21 @@ const Discussions = () => {
               placeholder="Discussion Title"
             ></input>
 
-<button className="px-2">
-  <svg
-    className="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M2.01 21.23L22 12 2.01 2.77C1.4 2.46 1.02 3.16 1.45 3.69L9.1 11.19C9.37 11.46 9.37 11.92 9.1 12.19L1.45 19.69C1.02 20.22 1.4 20.92 2.01 20.61L2.01 21.23ZM4 17L16.97 12L4 7V10.73L10.91 12L4 13.27V17Z"
-      fill=""
-    />
-  </svg>
-</button>
-
-
+            <button className="px-2">
+              <svg
+                className="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.01 21.23L22 12 2.01 2.77C1.4 2.46 1.02 3.16 1.45 3.69L9.1 11.19C9.37 11.46 9.37 11.92 9.1 12.19L1.45 19.69C1.02 20.22 1.4 20.92 2.01 20.61L2.01 21.23ZM4 17L16.97 12L4 7V10.73L10.91 12L4 13.27V17Z"
+                  fill=""
+                />
+              </svg>
+            </button>
           </div>
           <textarea
             className="w-full h-20 rounded-lg border-none border-stroke bg-transparent py-4 px-2 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -191,6 +192,8 @@ const Discussions = () => {
         ))}
       </div>
     </DefaultLayout>
+  ) : (
+    <NotSignedin />
   );
 };
 
