@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../images/logo/logo.svg';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { AlreadySignedin } from '../AlreadySignedin';
 
 const SignUp: React.FC = (y) => {
-  const storedValue = localStorage.getItem('myKey');
-  return storedValue==='true'?(<AlreadySignedin/>):(
+  const [currentUser,setCurrentUser] = useState("")
+  useEffect(() => {
+    const storedValue = localStorage.getItem('myKey');
+    setCurrentUser(storedValue ? storedValue : "");
+  }, []);
+  return currentUser==='true'?(<AlreadySignedin/>):(
     <DefaultLayout>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">

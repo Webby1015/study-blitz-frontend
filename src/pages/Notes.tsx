@@ -110,8 +110,12 @@ const Notes = () => {
   //     <>
   //       <Routes></Routes>
 
-  const storedValue = localStorage.getItem('myKey');
-  return storedValue==='true'?
+  const [currentUser,setCurrentUser] = useState("")
+  useEffect(() => {
+    const storedValue = localStorage.getItem('myKey');
+    setCurrentUser(storedValue ? storedValue : "");
+  }, []);
+  return currentUser==='true'?
   (
     <DefaultLayout>
       {/* Main Feed */}

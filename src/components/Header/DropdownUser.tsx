@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { logout } from '../../services/api';
 
-
 const DropdownUser = () => {
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -28,20 +26,18 @@ const DropdownUser = () => {
       try {
         const res = await logout();
         console.log(res);
-        toast(res.data)
+        toast(res.data);
         localStorage.setItem('myKey', 'false');
-        location.reload();
+        const storedValue = localStorage.getItem('myKey');
+        setCurrentUser(storedValue ? storedValue : '');
       } catch (error: any) {
-        localStorage.setItem('myKey', "true");
+        localStorage.setItem('myKey', 'true');
         console.error('Error during logout:', error.response.data.message);
       }
     };
 
     fetchData();
-
   };
-
-  
 
   // const isSignedIn = localStorage.getItem('accessToken') !== null;
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -74,9 +70,12 @@ const DropdownUser = () => {
   //   document.addEventListener('keydown', keyHandler);
   //   return () => document.removeEventListener('keydown', keyHandler);
   // });
-
-  const storedValue = localStorage.getItem('myKey');
-  return storedValue==='true'? (
+  const [currentUser, setCurrentUser] = useState('');
+  useEffect(() => {
+    const storedValue = localStorage.getItem('myKey');
+    setCurrentUser(storedValue ? storedValue : '');
+  }, []);
+  return currentUser === 'true' ? (
     <div className="relative">
       <Link
         ref={trigger}
