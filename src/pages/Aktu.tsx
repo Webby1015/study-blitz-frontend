@@ -16,10 +16,10 @@ const Aktu = () => {
   return (
     <DefaultLayout>
       {loading ? (
-        <Loader  />
+        <Loader   />
       ) : (
         <iframe
-          className=" rounded-md "
+          className=" rounded-md bg-boxdark dark:bg-white"
           src="https://aktu.ac.in/"
           title="AKTU Website"
           style={{ width: '100%', height: '100vh', border: 'none' }}

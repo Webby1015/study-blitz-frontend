@@ -1,7 +1,27 @@
 import { useEffect, useState } from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
-import api from '../services/api';
-import { Document, Page } from '@react-pdf/renderer';
+import styled from 'styled-components';
+import { NotSignedin } from './NotSignedin';
+
+
+
+const IframeWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+  @media (max-width: 768px) {
+    padding-top: 75%; /* Adjust for different aspect ratio on smaller screens */
+  }
+`;
+
+const ResponsiveIframe = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+`;
 
 const Note = ({
   title,
@@ -22,8 +42,13 @@ const Note = ({
 
     <div className="mt-2">
       {/* <iframe src={URL} title="PDF Viewer" className="w-full h-100"></iframe> */}
-      {/* <iframe src="https://drive.google.com/file/d/1ftt9UVsALRYKOyhvNZ8WgvKUDKS-0XU5/preview" width="640" height="480" allow="autoplay"></iframe> */}
-      <button onClick={()=> window.open("https://drive.google.com/file/d/1ftt9UVsALRYKOyhvNZ8WgvKUDKS-0XU5/preview", "_blank")} >View PDF</button>
+      <IframeWrapper>
+      <ResponsiveIframe
+        src="https://www.clickdimensions.com/links/TestPDFfile.pdf"
+        allow="autoplay"
+      ></ResponsiveIframe>
+    </IframeWrapper>
+      <button onClick={()=> window.open("https://drive.google.com/file/d/1ftt9UVsALRYKOyhvNZ8WgvKUDKS-0XU5/preview", "_blank")} >View PDF in new tab</button>
     </div>
     
     {/* <button onClick={toggleComments} className="text-blue-500 mt-2">
@@ -43,6 +68,7 @@ const Note = ({
 );
 
 const Notes = () => {
+  const notsignin = true;
   const [loading, setLoading] = useState(false);
   const [notes, setNotes] = useState([
     { title: 'dummy', URL: '' },
@@ -58,23 +84,25 @@ const Notes = () => {
 //       ),
 //     );
 //   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get('/api/notes');
-        // console.log(response.data.data);
-        setNotes(response.data.data);
-        setNotesCopy(response.data.data)
-        // toast(response.data.message)
-      } catch (err) {
-        console.error('Error fetching data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+// const isSignedIn = localStorage.getItem('accessToken') !== null;
+//   useEffect(() => {
+//     if(isSignedIn){
+//     const fetchData = async () => {
+//       try {
+//         const response = await api.get('/api/notes');
+//         // console.log(response.data.data);
+//         setNotes(response.data.data);
+//         setNotesCopy(response.data.data)
+//         // toast(response.data.message)
+//       } catch (err) {
+//         console.error('Error fetching data:', err);
+//       } finally {
+//         setLoading(false);
+//       }
+      
+//     };
+//     fetchData();
+//   }}, []);
 
   //   return loading ? (
   //     <Loader />
@@ -82,7 +110,9 @@ const Notes = () => {
   //     <>
   //       <Routes></Routes>
 
-  return (
+  const storedValue = localStorage.getItem('myKey');
+  return storedValue==='true'?
+  (
     <DefaultLayout>
       {/* Main Feed */}
       <div className="col-span-1 md:col-span-2">
@@ -96,8 +126,8 @@ const Notes = () => {
               }else{
                 setNotes([...notes.filter(item => item.title.includes(event.target.value))])}}
               }
-                
-            ></input>
+              
+              ></input>
             <button className="px-2">
               <svg
                 className="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
@@ -106,7 +136,7 @@ const Notes = () => {
                 viewBox="0 0 20 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-              >
+                >
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -118,7 +148,7 @@ const Notes = () => {
                   clipRule="evenodd"
                   d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z"
                   fill=""
-                />
+                  />
               </svg>
             </button>
           </div>
@@ -126,15 +156,17 @@ const Notes = () => {
 
         {notes.map((note, index) => (
           <Note
-            key={index}
-            title={note.title}
-            URL={note.URL}
-            // toggleComments={() => toggleComments(index)}
+          key={index}
+          title={note.title}
+          URL={note.URL}
+          // toggleComments={() => toggleComments(index)}
           />
         ))}
       </div>
     </DefaultLayout>
-  );
+  )
+  :
+  (<NotSignedin/>)
 };
 
 export default Notes;

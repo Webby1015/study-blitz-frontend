@@ -107,10 +107,36 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-              
-              {/* <!-- Menu Item Calendar --> */}
-
+              {/* <!-- Menu Item Home --> */}
+              <li>
+                <NavLink
+                  to="/home"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('/home') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  <svg
+                    className="fill-current"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21 2H7C5.89543 2 5 2.89543 5 4V20C5 21.1046 5.89543 22 7 22H21C22.1046 22 23 21.1046 23 20V4C23 2.89543 22.1046 2 21 2ZM7 20V4H21V20H7Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M9 6H19V8H9V6ZM9 10H19V12H9V10ZM9 14H15V16H9V14Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  Home
+                </NavLink>
+              </li>
               {/* <!-- Menu Item Notes --> */}
+
               <li>
                 <NavLink
                   to="/notes"
@@ -170,7 +196,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               {/* <!-- Menu Item Discussion -->    */}
               {/* <!-- Menu Item Profile --> */}
-              {/* <li>
+              <li>
                 <NavLink
                   to="/profile"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -196,7 +222,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </svg>
                   Profile
                 </NavLink>
-              </li> */}
+              </li>
               {/* <!-- Menu Item Profile --> */}
 
               {/* <!-- Menu Item Settings --> */}
@@ -210,7 +236,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-            <li>
+              <li>
                 <NavLink
                   to="/aktu-ac-in"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -417,7 +443,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Ui Elements --> */}
 
               {/* <!-- Menu Item Auth Pages --> */}
-              {/* <SidebarLinkGroup
+              <SidebarLinkGroup
                 activeCondition={
                   pathname === '/auth' || pathname.includes('auth')
                 }
@@ -486,7 +512,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           />
                         </svg>
                       </NavLink>
-                      
+
                       <div
                         className={`translate transform overflow-hidden ${
                           !open && 'hidden'
@@ -517,11 +543,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           </li>
                         </ul>
                       </div>
-                      
                     </React.Fragment>
                   );
                 }}
-              </SidebarLinkGroup> */}
+              </SidebarLinkGroup>
               {/* <!-- Menu Item Auth Pages --> */}
             </ul>
           </div>
