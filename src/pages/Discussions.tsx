@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../layout/DefaultLayout';
@@ -114,8 +114,12 @@ const Discussions = (props: any) => {
     // console.log(props.userState)
   };
 
-  const storedValue = localStorage.getItem('myKey');
-  return storedValue==='true'? (
+  const [currentUser,setCurrentUser] = useState("")
+  useEffect(() => {
+    const storedValue = localStorage.getItem('myKey');
+    setCurrentUser(storedValue ? storedValue : "");
+  }, []);
+  return currentUser==='true'? (
     <DefaultLayout>
       {/* Main Feed */}
       <div className="col-span-1 md:col-span-2">

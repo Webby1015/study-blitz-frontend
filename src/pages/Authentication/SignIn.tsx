@@ -19,8 +19,9 @@ const SignIn: React.FC = (props:any) => {
           const res = await signin(email,password);
           console.log(res);
           console.log(res.data.message)
-          location.reload()
           localStorage.setItem('myKey', 'true');
+          const storedValue = localStorage.getItem('myKey');
+          setCurrentUser(storedValue ? storedValue : "");
         } catch (error: any) {
           console.error('Error during signin:', error.response.data.message);
         }
@@ -28,8 +29,12 @@ const SignIn: React.FC = (props:any) => {
   
       fetchData();
   };
-  const storedValue = localStorage.getItem('myKey');
-  return storedValue==='true'?(
+  const [currentUser,setCurrentUser] = useState("")
+  useEffect(() => {
+    const storedValue = localStorage.getItem('myKey');
+    setCurrentUser(storedValue ? storedValue : "");
+  }, []); 
+  return currentUser==='true'?(
     <AlreadySignedin/>
   ):(
     <DefaultLayout>
