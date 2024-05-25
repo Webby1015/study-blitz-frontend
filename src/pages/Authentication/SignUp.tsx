@@ -1,28 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 import DefaultLayout from '../../layout/DefaultLayout';
+import { AlreadySignedin } from '../AlreadySignedin';
 
-const SignUp: React.FC = () => {
-  return (
+const SignUp: React.FC = (y) => {
+  const storedValue = localStorage.getItem('myKey');
+  return storedValue==='true'?(<AlreadySignedin/>):(
     <DefaultLayout>
-
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" to="/">
-              <img className="hidden dark:block bg-white rounded-lg h-70" src={Logo} alt="Logo" />
-                <img className="dark:hidden bg-white rounded-lg h-70" src={Logo} alt="Logo" />
+                <img
+                  className="hidden dark:block bg-white rounded-lg h-70"
+                  src={Logo}
+                  alt="Logo"
+                />
+                <img
+                  className="dark:hidden bg-white rounded-lg h-70"
+                  src={Logo}
+                  alt="Logo"
+                />
               </Link>
               <p className="2xl:px-20">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit
                 suspendisse.
               </p>
-
-              
             </div>
           </div>
 
@@ -34,7 +39,7 @@ const SignUp: React.FC = () => {
               </h2>
 
               <form>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
                   </label>
@@ -67,7 +72,7 @@ const SignUp: React.FC = () => {
                       </svg>
                     </span>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
@@ -135,7 +140,7 @@ const SignUp: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Collage
                   </label>
@@ -146,9 +151,9 @@ const SignUp: React.FC = () => {
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
-                </div>
+                </div> */}
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Course
                   </label>
@@ -158,11 +163,10 @@ const SignUp: React.FC = () => {
                       placeholder="Enter your Course"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-
                   </div>
-                </div>
+                </div> */}
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Major
                   </label>
@@ -172,11 +176,10 @@ const SignUp: React.FC = () => {
                       placeholder="Enter your Collage Major"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-
                   </div>
-                </div>
+                </div> */}
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Year
                   </label>
@@ -186,25 +189,23 @@ const SignUp: React.FC = () => {
                       placeholder="Enter your Collage Year"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-
                   </div>
-                </div>
+                </div> */}
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     About You
                   </label>
                   <div className="relative">
-                  <textarea
-                        className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        name="bio"
-                        id="bio"
-                        rows={6}
-                        placeholder="Write your bio here"
-                      ></textarea>
-
+                    <textarea
+                      className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      name="bio"
+                      id="bio"
+                      rows={6}
+                      placeholder="Write your bio here"
+                    ></textarea>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="mb-5">
                   <input

@@ -1,68 +1,82 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../services/api';
 import { toast } from 'react-toastify';
+import { logout } from '../../services/api';
+
 
 const DropdownUser = () => {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get('/api/notes');
-        // console.log(response.data.data);
-        // setNotes(response.data.data);
-        // setNotesCopy(response.data.data)
-        // toast(response.data.message)
-      } catch (err) {
-        console.error('Error fetching data:', err);
-      } finally {
-        // setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await api.get('/api/notes');
+  //       // console.log(response.data.data);
+  //       // setNotes(response.data.data);
+  //       // setNotesCopy(response.data.data)
+  //       // toast(response.data.message)
+  //     } catch (err) {
+  //       console.error('Error fetching data:', err);
+  //     } finally {
+  //       // setLoading(false);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const handdleLogout = () => {
-    const accessToken = null;
-    localStorage.clear();
-    api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-    // toast.success("Logged Out");
-    window.location.reload();
+    const fetchData = async () => {
+      try {
+        const res = await logout();
+        console.log(res);
+        toast(res.data)
+        localStorage.setItem('myKey', 'false');
+        location.reload();
+      } catch (error: any) {
+        localStorage.setItem('myKey', "true");
+        console.error('Error during logout:', error.response.data.message);
+      }
+    };
+
+    fetchData();
+
   };
 
-  const isSignedIn = localStorage.getItem('accessToken') !== null;
+  
+
+  // const isSignedIn = localStorage.getItem('accessToken') !== null;
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
   // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }: MouseEvent) => {
-      if (!dropdown.current) return;
-      if (
-        !dropdownOpen ||
-        dropdown.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
-  });
+  // useEffect(() => {
+  //   const clickHandler = ({ target }: MouseEvent) => {
+  //     if (!dropdown.current) return;
+  //     if (
+  //       !dropdownOpen ||
+  //       dropdown.current.contains(target) ||
+  //       trigger.current.contains(target)
+  //     )
+  //       return;
+  //     setDropdownOpen(false);
+  //   };
+  //   document.addEventListener('click', clickHandler);
+  //   return () => document.removeEventListener('click', clickHandler);
+  // });
 
   // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = ({ keyCode }: KeyboardEvent) => {
-      if (!dropdownOpen || keyCode !== 27) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
-  });
+  // useEffect(() => {
+  //   const keyHandler = ({ keyCode }: KeyboardEvent) => {
+  //     if (!dropdownOpen || keyCode !== 27) return;
+  //     setDropdownOpen(false);
+  //   };
+  //   document.addEventListener('keydown', keyHandler);
+  //   return () => document.removeEventListener('keydown', keyHandler);
+  // });
 
-  return isSignedIn ? (
+  const storedValue = localStorage.getItem('myKey');
+  return storedValue==='true'? (
     <div className="relative">
       <Link
         ref={trigger}

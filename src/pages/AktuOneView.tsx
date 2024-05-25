@@ -19,7 +19,7 @@ const AktuOneView = () => {
         <Loader  />
       ) : (
         <iframe
-          className=" rounded-md  bg-white"
+          className="rounded-md bg-boxdark dark:bg-white"
           src="https://oneview.aktu.ac.in/WebPages/aktu/OneView.aspx"
           title="AKTU Website"
           style={{ width: '100%', height: '100vh', border: 'none' }}
