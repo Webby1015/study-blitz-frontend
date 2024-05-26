@@ -5,6 +5,18 @@ const api = axios.create({
   // baseURL: 'http://localhost:5001/',
 });
 
+
+
+export const serverStatus =  async ()=>{
+  try {
+    const response = await api.get('/'); 
+    return response.data;
+  } catch (error) {
+    // console.error('Error making API call:', error);
+    throw error;
+  }
+}
+
 export const currentuser =  async ()=>{
   try {
     const response = await api.get('api/firebase/auth/currentuser'); 

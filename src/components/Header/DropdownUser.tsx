@@ -9,7 +9,7 @@ const DropdownUser = () => {
     const fetchData = async () => {
       try {
         const res = await logout();
-        console.log(res);
+        console.log(res.message);
         localStorage.setItem('myKey', 'false');
         const storedValue = localStorage.getItem('myKey');
         setCurrentUser(storedValue ? storedValue : '');

@@ -13,7 +13,7 @@ import Aktu from './pages/Aktu';
 import AktuOneView from './pages/AktuOneView';
 import 'react-toastify/dist/ReactToastify.css';
 import { Welcome } from './pages/Welcome';
-import { currentuser } from './services/api';
+import { currentuser, serverStatus } from './services/api';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,6 +29,17 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const fetchserverstatus = async () => {
+      try {
+        const res = await serverStatus();
+        // console.log(res);
+        // console.log(res.data.message)
+        setLoading(false);
+      } catch (error: any) {
+        
+        console.error('while starting server', error.response.data.message);
+      }
+    };
     const fetchData = async () => {
       try {
         const res = await currentuser();
@@ -40,7 +51,7 @@ function App() {
         console.error('Error during registration:', error.response.data.message);
       }
     };
-
+    fetchserverstatus();
     fetchData();
   }, []);
 

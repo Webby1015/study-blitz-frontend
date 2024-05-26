@@ -19,7 +19,7 @@ const SignIn: React.FC = (props: any) => {
     const fetchData = async () => {
       try {
         const res = await signin(email, password);
-        // console.log(res.message);
+        console.log(res.message);
         localStorage.setItem('myKey', 'true');
         const storedValue = localStorage.getItem('myKey');
         setCurrentUser(storedValue ? storedValue : '');
