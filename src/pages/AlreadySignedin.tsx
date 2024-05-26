@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // Define keyframes
 const scanAnimation = keyframes`
   0% { background-position: 0 -100vh; }
-  35%, 100% { background-position: 0 100vh; }
+  35%, 80% { background-position: 0 100vh; }
 `;
 
 // Styled components
@@ -119,7 +119,7 @@ const StyledLink = styled(Link)`
 export const AlreadySignedin = () => {
   return (
     <DefaultLayout>
-      <Container>
+      <Container className=' rounded-md'>
         <Noise />
         <Overlay />
         <Terminal>

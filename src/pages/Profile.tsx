@@ -7,6 +7,9 @@ import { NotSignedin } from './NotSignedin';
 import { useEffect, useState } from 'react';
 
 const Profile = () => {
+
+  
+
   const [currentUser,setCurrentUser] = useState("")
   useEffect(() => {
     const storedValue = localStorage.getItem('myKey');
