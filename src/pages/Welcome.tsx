@@ -27,7 +27,7 @@ export const Welcome = () => {
           <main>
             <p className="text-lg text-white mb-8 leading-relaxed">
               Whether you are a student striving for excellence or an educator
-              seeking to support your students, StudySphere provides an
+              seeking to support your students, Study Blitz provides an
               all-in-one platform to access study materials and engage in
               meaningful discussions
             </p>

@@ -1,33 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { logout } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const DropdownUser = () => {
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await api.get('/api/notes');
-  //       // console.log(response.data.data);
-  //       // setNotes(response.data.data);
-  //       // setNotesCopy(response.data.data)
-  //       // toast(response.data.message)
-  //     } catch (err) {
-  //       console.error('Error fetching data:', err);
-  //     } finally {
-  //       // setLoading(false);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
   const navigate = useNavigate();
   const handdleLogout = () => {
     const fetchData = async () => {
       try {
         const res = await logout();
         console.log(res);
-        toast(res.data);
         localStorage.setItem('myKey', 'false');
         const storedValue = localStorage.getItem('myKey');
         setCurrentUser(storedValue ? storedValue : '');
