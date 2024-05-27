@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  // baseURL: 'https://study-blitz-backend.onrender.com/',
-  baseURL: 'http://localhost:5001/',
+  baseURL: 'https://study-blitz-backend.onrender.com/',
+  // baseURL: 'http://localhost:5001/',
 });
 
 
