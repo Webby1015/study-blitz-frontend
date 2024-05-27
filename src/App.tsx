@@ -16,7 +16,7 @@ import { Welcome } from './pages/Welcome';
 import { currentuser, serverStatus } from './services/api';
 
 function App() {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const { pathname } = useLocation();
 
 
@@ -24,9 +24,6 @@ function App() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
 
   useEffect(() => {
     const fetchserverstatus = async () => {
@@ -43,12 +40,12 @@ function App() {
     const fetchData = async () => {
       try {
         const res = await currentuser();
-        // console.log(res);
+        console.log(res.data.email);
         // console.log(res.data.message)
         localStorage.setItem('myKey', 'true');
       } catch (error: any) {
         localStorage.setItem('myKey', "false");
-        console.error('Error during registration:', error.response.data.message);
+        console.error('Error during getting user data', error.response.data.message);
       }
     };
     fetchserverstatus();

@@ -27,7 +27,7 @@ const SignUp: React.FC = (y) => {
         navigate('/notes');
       } catch (error: any) {
         console.error('Error during signin:', error.response.data.message);
-        toast.warning(error.response.data.message)
+        toast.warning(error.response?.data?.message || error.message);
       }
     };
     fetchData();
