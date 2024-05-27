@@ -124,17 +124,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M21 2H7C5.89543 2 5 2.89543 5 4V20C5 21.1046 5.89543 22 7 22H21C22.1046 22 23 21.1046 23 20V4C23 2.89543 22.1046 2 21 2ZM7 20V4H21V20H7Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M9 6H19V8H9V6ZM9 10H19V12H9V10ZM9 14H15V16H9V14Z"
+                      d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"
                       fill="currentColor"
                     />
                   </svg>
                   Home
                 </NavLink>
               </li>
+
               {/* <!-- Menu Item Notes --> */}
 
               <li>
@@ -175,19 +172,16 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   }`}
                 >
                   <svg
-                    className="fill-current"
-                    width="18"
-                    height="18"
+                    width="24"
+                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M21 2H7C5.89543 2 5 2.89543 5 4V20C5 21.1046 5.89543 22 7 22H21C22.1046 22 23 21.1046 23 20V4C23 2.89543 22.1046 2 21 2ZM7 20V4H21V20H7Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M9 6H19V8H9V6ZM9 10H19V12H9V10ZM9 14H15V16H9V14Z"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M10 5C10 3.89543 10.8954 3 12 3C13.1046 3 14 3.89543 14 5C14 6.10457 13.1046 7 12 7C10.8954 7 10 6.10457 10 5ZM4 9V21C4 21.5523 4.44772 22 5 22H19C19.5523 22 20 21.5523 20 21V9C20 8.44772 19.5523 8 19 8H5C4.44772 8 4 8.44772 4 9ZM6 11C6 10.4477 6.44772 10 7 10H9C9.55228 10 10 10.4477 10 11V13C10 13.5523 9.55228 14 9 14H7C6.44772 14 6 13.5523 6 13V11ZM12 17C11.4477 17 11 17.4477 11 18C11 18.5523 11.4477 19 12 19C12.5523 19 13 18.5523 13 18C13 17.4477 12.5523 17 12 17ZM16 11C16 10.4477 16.4477 10 17 10H19C19.5523 10 20 10.4477 20 11V13C20 13.5523 19.5523 14 19 14H17C16.4477 14 16 13.5523 16 13V11Z"
                       fill="currentColor"
                     />
                   </svg>
@@ -196,7 +190,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </li>
               {/* <!-- Menu Item Discussion -->    */}
               {/* <!-- Menu Item Profile --> */}
-              <li>
+              {/* <li>
                 <NavLink
                   to="/profile"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -222,7 +216,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </svg>
                   Profile
                 </NavLink>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Profile --> */}
 
               {/* <!-- Menu Item Settings --> */}
