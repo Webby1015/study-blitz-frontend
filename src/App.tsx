@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
@@ -226,6 +226,7 @@ function App() {
           }
         />
       </Routes>
+      <ToastContainer/>
     </>
   );
 }

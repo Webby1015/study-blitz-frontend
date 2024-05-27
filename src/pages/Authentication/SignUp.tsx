@@ -5,6 +5,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import { AlreadySignedin } from '../AlreadySignedin';
 import { signup } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const SignUp: React.FC = (y) => {
   const navigate = useNavigate();
@@ -19,12 +20,14 @@ const SignUp: React.FC = (y) => {
       try {
         const res = await signup(email, password);
         console.log(res.message);
+        toast.success(res.message)
         localStorage.setItem('myKey', 'true');
         const storedValue = localStorage.getItem('myKey');
         setCurrentUser(storedValue ? storedValue : '');
         navigate('/notes');
       } catch (error: any) {
         console.error('Error during signin:', error.response.data.message);
+        toast.warning(error.response.data.message)
       }
     };
     fetchData();
