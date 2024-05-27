@@ -1,45 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../images/logo/logo.svg';
 import DefaultLayout from '../../layout/DefaultLayout';
-// import { toast } from 'react-toastify';
 import { AlreadySignedin } from '../AlreadySignedin';
 import { signin } from '../../services/api';
-import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
-const SignIn: React.FC = (props: any) => {
+const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const singin = true;
-  const navigate = useNavigate();
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
 
-    const fetchData = async () => {
-      try {
-        const res = await signin(email, password);
-        console.log(res.message);
-        localStorage.setItem('myKey', 'true');
-        const storedValue = localStorage.getItem('myKey');
-        setCurrentUser(storedValue ? storedValue : '');
-        navigate('/notes');
-      } catch (error: any) {
-        console.error('Error during signin:', error.response.data.message);
-      }
-    };
-    fetchData();
-  };
   const [currentUser, setCurrentUser] = useState('');
+  const navigate = useNavigate();
+
   useEffect(() => {
     const storedValue = localStorage.getItem('myKey');
     setCurrentUser(storedValue ? storedValue : '');
   }, []);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await signin(email, password);
+      console.log(res.message);
+      toast.success(res.message);
+      localStorage.setItem('myKey', 'true');
+      setCurrentUser('true');
+      navigate('/notes');
+    } catch (error: any) {
+      console.error('Error during signin:', error.response?.data?.message || error.message);
+      toast.warning(error.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return currentUser === 'true' ? (
     <AlreadySignedin />
   ) : (
     <DefaultLayout>
-      {/* <Breadcrumb pageName="Sign In" /> */}
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
